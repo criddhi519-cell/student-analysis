@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard - Student Performance</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav>
+    <h2>Student Performance Dashboard</h2>
+    <div class="nav-actions">
+      <input id="searchInput" type="search" placeholder="Search name / subject / roll" />
+      <button id="exportPdfBtn" class="btn small">Export PDF</button>
+      <button id="resetBtn" class="btn danger small">Reset Data</button>
+    </div>
+  </nav>
+
+  <main class="container" id="dashboardRoot">
+    <section class="top-cards">
+      <div class="card metric">
+        <div class="metric-title">Total Students</div>
+        <div class="metric-value" id="totalStudents">0</div>
+      </div>
+      <div class="card metric">
+        <div class="metric-title">Average Marks</div>
+        <div class="metric-value" id="avgMarksCard">0</div>
+      </div>
+      <div class="card metric">
+        <div class="metric-title">Avg Attendance</div>
+        <div class="metric-value" id="avgAttendance">0</div>
+      </div>
+      <div class="card metric">
+        <div class="metric-title">Pass %</div>
+        <div class="metric-value" id="passPercent">0%</div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card form-card">
+        <h3>Add Student Record</h3>
+        <form id="studentForm" autocomplete="off">
+          <input type="text" id="sName" placeholder="Student Name" required />
+          <input type="text" id="sRoll" placeholder="Roll No" required />
+          <input type="text" id="sSubject" placeholder="Subject" required />
+          <input type="number" id="sMarks" placeholder="Marks (0-100)" min="0" max="100" required />
+          <input type="number" id="sAttendance" placeholder="Attendance % (0-100)" min="0" max="100" required />
+          <button type="submit" class="btn">Add Student</button>
+        </form>
+      </div>
+
+      <div class="card table-card">
+        <h3>Student Records</h3>
+        <div class="table-container">
+          <table id="studentTable" aria-live="polite">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Roll No</th>
+                <th>Subject</th>
+                <th>Marks</th>
+                <th>Attendance %</th>
+                <th>Grade</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <div id="noRecords" class="muted">No records yet.</div>
+        </div>
+      </div>
+
+      <div class="card chart-card">
+        <h3>Subject-wise Average Marks</h3>
+        <div id="subjectAvgChart"></div>
+      </div>
+
+      <div class="card chart-card">
+        <h3>Grade Distribution</h3>
+        <div id="gradePieChart"></div>
+      </div>
+
+      <div class="card chart-card">
+        <h3>Attendance vs Marks</h3>
+        <div id="scatterChart"></div>
+      </div>
+
+      <div class="card chart-card">
+        <h3>Top 5 Performers</h3>
+        <div id="topBarChart"></div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- App script (placed at end for safe DOM access) -->
+  <script src="script.js"></script>
+</body>
+</html>

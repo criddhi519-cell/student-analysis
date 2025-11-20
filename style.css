@@ -1,0 +1,68 @@
+:root{
+  --bg:#f6f9fc;
+  --card:#ffffff;
+  --primary:#2575fc;
+  --accent:#6a11cb;
+  --muted:#6b7280;
+  --danger:#e74c3c;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:#222;
+}
+
+/* Welcome */
+.welcome-container{
+  display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;padding:20px;text-align:center;
+}
+.welcome-container h1{font-size:2.2rem;margin:0 0 8px}
+.muted{color:var(--muted)}
+.welcome-actions{margin-top:12px}
+.btn{
+  display:inline-block;padding:10px 16px;border-radius:8px;background:linear-gradient(90deg,var(--primary),var(--accent));color:#fff;text-decoration:none;border:none;cursor:pointer;font-weight:600;
+}
+.btn.small{padding:6px 10px;font-size:0.9rem}
+.btn.danger{background:var(--danger)}
+
+nav{
+  background:var(--card);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 3px 12px rgba(20,32,50,0.06);
+}
+nav h2{margin:0;color:var(--primary)}
+.nav-actions{display:flex;gap:10px;align-items:center}
+#searchInput{padding:8px 10px;border-radius:8px;border:1px solid #e6e9ef;min-width:180px}
+
+/* container */
+.container{width:95%;max-width:1200px;margin:20px auto}
+.top-cards{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.card{background:var(--card);padding:16px;border-radius:10px;box-shadow:0 8px 20px rgba(17,24,39,0.04)}
+.metric{flex:1;min-width:160px;text-align:center}
+.metric-title{color:var(--muted);font-size:0.9rem}
+.metric-value{font-size:1.6rem;font-weight:700;color:var(--primary);margin-top:8px}
+
+/* grid layout */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.form-card{min-height:220px}
+.form-card form input{display:block;width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid #e6e9ef}
+.form-card form button{margin-top:8px}
+
+.table-card{grid-row:span 2}
+.table-container{overflow:auto}
+#studentTable{width:100%;border-collapse:collapse;margin-top:8px}
+#studentTable th,#studentTable td{padding:10px;border-bottom:1px solid #f1f4f8;text-align:center}
+#studentTable tbody tr:nth-child(even){background:#fbfcfe}
+#studentTable tbody tr:hover{background:#eef7ff}
+#noRecords{padding:10px;color:var(--muted);display:none}
+
+/* charts */
+.chart-card{min-height:260px}
+#subjectAvgChart, #gradePieChart, #scatterChart, #topBarChart{
+  width:100%;height:250px;
+}
+
+/* responsive */
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr}
+  .top-cards{flex-direction:column}
+  nav{padding:10px}
+  #searchInput{min-width:120px}
+}
