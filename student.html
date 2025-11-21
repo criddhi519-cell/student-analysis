@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+    <style>
+        body {
+            background: #0a1a2a;
+            color: white;
+            font-family: Arial;
+            padding: 30px;
+        }
+        .info {
+            background: #112233;
+            width: 350px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Student Dashboard</h1>
+
+<div class="info" id="dataBox">
+    Loading Marks...
+</div>
+
+<script>
+let name = localStorage.getItem("studentName").toLowerCase();
+let data = JSON.parse(localStorage.getItem(name));
+
+if(data) {
+    document.getElementById("dataBox").innerHTML = `
+        <h2>${data.name}</h2>
+        <p><b>Subject 1:</b> ${data.sub1}</p>
+        <p><b>Subject 2:</b> ${data.sub2}</p>
+        <p><b>Subject 3:</b> ${data.sub3}</p>
+    `;
+} else {
+    document.getElementById("dataBox").innerHTML = 
+        "No data found. Ask teacher to add your marks.";
+}
+</script>
+
+</body>
+</html>

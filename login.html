@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login | Student Analysis</title>
+    <style>
+        body {
+            background: #0a1a2a;
+            font-family: Arial;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+        .box {
+            width: 320px;
+            padding: 20px;
+            background: #112233;
+            border-radius: 10px;
+            text-align: center;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            background: #0b1625;
+            border: 1px solid #345;
+            color: white;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #1a73e8;
+            border: none;
+            color: white;
+            font-size: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        a { color: #4eaafe; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Login</h2>
+
+    <input type="text" id="user" placeholder="Username">
+    <input type="password" id="pass" placeholder="Password">
+    <button onclick="login()">Login</button>
+
+    <p><a href="#" onclick="setRole('teacher')">Teacher Login</a> |
+       <a href="#" onclick="setRole('student')">Student Login</a></p>
+</div>
+
+<script>
+    let role = "";
+
+    function setRole(r) {
+        role = r;
+        alert("Selected: " + r);
+    }
+
+    function login() {
+        let u = document.getElementById("user").value;
+        let p = document.getElementById("pass").value;
+
+        if(role === "teacher") {
+            if(u === "teacher" && p === "12345") {
+                window.location.href = "teacher.html";
+            } else {
+                alert("Wrong Teacher Login");
+            }
+        }
+        else if(role === "student") {
+            localStorage.setItem("studentName", u);
+            window.location.href = "student.html";
+        }
+        else {
+            alert("Please select login type!");
+        }
+    }
+</script>
+
+</body>
+</html>

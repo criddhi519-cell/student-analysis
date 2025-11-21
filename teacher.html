@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Panel</title>
+    <style>
+        body {
+            background: #0a1a2a;
+            color: white;
+            font-family: Arial;
+            padding: 30px;
+        }
+        .box {
+            width: 350px;
+            background: #112233;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            background: #0b1625;
+            border: 1px solid #345;
+            color: white;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #1a73e8;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Teacher Dashboard</h1>
+
+<div class="box">
+    <h3>Add Student Marks</h3>
+
+    <input type="text" id="name" placeholder="Student Name">
+    <input type="number" id="sub1" placeholder="Subject 1 Marks">
+    <input type="number" id="sub2" placeholder="Subject 2 Marks">
+    <input type="number" id="sub3" placeholder="Subject 3 Marks">
+
+    <button onclick="save()">Save Marks</button>
+</div>
+
+<script>
+function save() {
+    let student = {
+        name: document.getElementById("name").value,
+        sub1: document.getElementById("sub1").value,
+        sub2: document.getElementById("sub2").value,
+        sub3: document.getElementById("sub3").value
+    };
+
+    localStorage.setItem(student.name.toLowerCase(), JSON.stringify(student));
+    alert("Marks Added Successfully");
+}
+</script>
+
+</body>
+</html>
