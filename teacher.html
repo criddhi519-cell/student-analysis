@@ -1,66 +1,60 @@
+<!-- paste entire file content below into teacher.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Teacher Panel</title>
-    <style>
-        body {
-            background: #0a1a2a;
-            color: white;
-            font-family: Arial;
-            padding: 30px;
-        }
-        .box {
-            width: 350px;
-            background: #112233;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        input {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            background: #0b1625;
-            border: 1px solid #345;
-            color: white;
-            border-radius: 5px;
-        }
-        button {
-            padding: 10px 20px;
-            background: #1a73e8;
-            border: none;
-            border-radius: 5px;
-            color: white;
-        }
-    </style>
+  <meta charset="utf-8"/>
+  <title>Teacher Panel</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body{background:#0b132b;color:white;font-family:Arial;padding:20px;}
+    .box{max-width:520px;background:#13203a;padding:18px;border-radius:10px;margin:auto;}
+    input,select{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:none;background:#172a44;color:white;}
+    button{padding:10px 14px;background:#4ea8de;border:none;border-radius:6px;cursor:pointer;font-weight:600;}
+    .small{font-size:14px;color:#cfeef8}
+  </style>
 </head>
 <body>
-
-<h1>Teacher Dashboard</h1>
-
-<div class="box">
-    <h3>Add Student Marks</h3>
-
-    <input type="text" id="name" placeholder="Student Name">
-    <input type="number" id="sub1" placeholder="Subject 1 Marks">
-    <input type="number" id="sub2" placeholder="Subject 2 Marks">
-    <input type="number" id="sub3" placeholder="Subject 3 Marks">
-
-    <button onclick="save()">Save Marks</button>
-</div>
+  <h2 style="text-align:center">Teacher Dashboard</h2>
+  <div class="box">
+    <label class="small">Roll / Student Name</label>
+    <input id="roll" placeholder="e.g. 21CS101 or Riddhi">
+    <label class="small">Subject 1</label>
+    <input id="s1" type="number" placeholder="Marks for Subject 1">
+    <label class="small">Subject 2</label>
+    <input id="s2" type="number" placeholder="Marks for Subject 2">
+    <label class="small">Subject 3</label>
+    <input id="s3" type="number" placeholder="Marks for Subject 3">
+    <div style="display:flex;gap:10px;margin-top:10px;">
+      <button onclick="save()">Save</button>
+      <button onclick="clearAll()" style="background:#e86b6b">Clear All</button>
+    </div>
+    <p id="msg" style="color:#ffdede"></p>
+  </div>
 
 <script>
-function save() {
-    let student = {
-        name: document.getElementById("name").value,
-        sub1: document.getElementById("sub1").value,
-        sub2: document.getElementById("sub2").value,
-        sub3: document.getElementById("sub3").value
-    };
+function save(){
+  const roll = document.getElementById('roll').value.trim();
+  if(!roll){ document.getElementById('msg').textContent='Enter roll/name'; return; }
+  const obj = {
+    name: roll,
+    s1: document.getElementById('s1').value || '0',
+    s2: document.getElementById('s2').value || '0',
+    s3: document.getElementById('s3').value || '0'
+  };
+  const data = JSON.parse(localStorage.getItem('studentMarks') || '{}');
+  data[roll.toLowerCase()] = obj;
+  localStorage.setItem('studentMarks', JSON.stringify(data));
+  document.getElementById('msg').textContent = 'Saved ✓';
+  // optional: clear fields
+  //document.getElementById('roll').value=''; document.getElementById('s1').value=''; document.getElementById('s2').value=''; document.getElementById('s3').value='';
+}
 
-    localStorage.setItem(student.name.toLowerCase(), JSON.stringify(student));
-    alert("Marks Added Successfully");
+function clearAll(){
+  if(confirm('Are you sure? This will delete all saved marks from your browser.')){
+    localStorage.removeItem('studentMarks');
+    document.getElementById('msg').textContent = 'All data removed (from this browser).';
+  }
 }
 </script>
-
 </body>
 </html>
