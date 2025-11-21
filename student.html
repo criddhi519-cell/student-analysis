@@ -1,46 +1,54 @@
+<!-- paste entire file content below into student.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Student Dashboard</title>
-    <style>
-        body {
-            background: #0a1a2a;
-            color: white;
-            font-family: Arial;
-            padding: 30px;
-        }
-        .info {
-            background: #112233;
-            width: 350px;
-            padding: 20px;
-            border-radius: 10px;
-        }
-    </style>
+  <meta charset="utf-8"/>
+  <title>Student Result</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body{background:#0b132b;color:white;font-family:Arial;padding:18px;}
+    .box{max-width:520px;background:#13203a;padding:18px;border-radius:10px;margin:auto;}
+    input{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:none;background:#172a44;color:white;}
+    button{padding:10px 14px;background:#4ea8de;border:none;border-radius:6px;cursor:pointer;font-weight:600;}
+  </style>
 </head>
 <body>
+  <h2 style="text-align:center">Student — View Marks</h2>
+  <div class="box">
+    <p style="color:#cfeef8">You can either search by roll/name or, if you logged in, click "Use my login".</p>
 
-<h1>Student Dashboard</h1>
+    <input id="roll" placeholder="Enter roll or name (e.g. 21CS101)">
+    <div style="display:flex;gap:10px;">
+      <button onclick="getMarks()">Get Result</button>
+      <button onclick="useLogin()">Use my login</button>
+    </div>
 
-<div class="info" id="dataBox">
-    Loading Marks...
-</div>
+    <div id="result" style="margin-top:14px;background:#0f1b2b;padding:12px;border-radius:8px;"></div>
+  </div>
 
 <script>
-let name = localStorage.getItem("studentName").toLowerCase();
-let data = JSON.parse(localStorage.getItem(name));
+function useLogin(){
+  const saved = localStorage.getItem('studentUser');
+  if(!saved){ alert('No saved login found. Use login page to set your username.'); return; }
+  document.getElementById('roll').value = saved;
+  getMarks();
+}
 
-if(data) {
-    document.getElementById("dataBox").innerHTML = `
-        <h2>${data.name}</h2>
-        <p><b>Subject 1:</b> ${data.sub1}</p>
-        <p><b>Subject 2:</b> ${data.sub2}</p>
-        <p><b>Subject 3:</b> ${data.sub3}</p>
-    `;
-} else {
-    document.getElementById("dataBox").innerHTML = 
-        "No data found. Ask teacher to add your marks.";
+function getMarks(){
+  const roll = document.getElementById('roll').value.trim().toLowerCase();
+  const data = JSON.parse(localStorage.getItem('studentMarks') || '{}');
+  const out = document.getElementById('result');
+  if(!roll){ out.innerHTML = 'Enter roll/name.'; return; }
+  if(data[roll]){
+    const d = data[roll];
+    out.innerHTML = `<h3>${d.name}</h3>
+      <p>Subject 1: ${d.s1}</p>
+      <p>Subject 2: ${d.s2}</p>
+      <p>Subject 3: ${d.s3}</p>`;
+  } else {
+    out.innerHTML = 'No record found. Ask teacher to add marks.';
+  }
 }
 </script>
-
 </body>
 </html>
